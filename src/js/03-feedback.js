@@ -27,13 +27,13 @@ function onSavedInput() {
   if (savedData) {
     formEl.email.value = savedData.email;
     formEl.textarea.value = savedData.message;
+    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
   }
 }
 
 function onFormSubmit(event) {
   event.preventDefault();
   if (formEl.email.value && formEl.textarea.value) {
-    console.log(formData);
     localStorage.removeItem(STORAGE_KEY);
     formEl.form.reset();
   } else {
