@@ -9,7 +9,8 @@ const formEl = {
 };
 
 const STORAGE_KEY = 'feedback-form-state';
-const formData = {};
+let formData = {};
+let savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
 formEl.form.addEventListener('submit', onFormSubmit);
 formEl.form.addEventListener(
@@ -23,10 +24,11 @@ formEl.form.addEventListener(
 onSavedInput();
 
 function onSavedInput() {
-  const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
   if (savedData) {
     formEl.email.value = savedData.email;
     formEl.textarea.value = savedData.message;
+    formData.email = savedData.email;
+    formData.message = savedData.message;
     console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
   }
 }
@@ -39,8 +41,10 @@ function onFormSubmit(event) {
   } else {
     alert('Please fill in all fields.');
   }
+  console.log(savedData);
 }
 
 function saveFormDataToLocalStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 }
